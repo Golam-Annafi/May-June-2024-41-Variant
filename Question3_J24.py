@@ -1,66 +1,70 @@
 #3.a 
-QueueData = []
-for x in range(0,20):
-    QueueData.append("")
+global QueueData
+global QueueHead
+global QueueTail
+QueueData = [""] * 20
 QueueHead = -1
 QueueTail = -1
 
-#3.b 
-def Enqueue(Data):
+#3.b EnQueue
+def Enqueue(data):
     global QueueData
     global QueueHead
-    global QueueTail
-    if QueueTail >=19:
+    global QueueTail 
+    if QueueTail == 19:
         return False
-    else:
-        if QueueHead == -1:
-            QueueHead = 0
-        QueueTail += 1
-        QueueData[QueueTail] = Data
-        return True
-    
+    elif QueueHead == -1:
+        QueueHead = 0
+    QueueTail += 1
+    QueueData[QueueTail] = data
+    return True
+
 #3.c 
-def Dequeue():
+def Dequeue(): 
     global QueueData
     global QueueHead
     global QueueTail
-    if QueueHead == -1 or QueueHead > QueueTail:
+    if QueueTail == -1 or QueueHead == -1:
         return False
     else:
-        QueueHead += 1
-        return (QueueData[QueueHead-1])
-        
+        returned_val = QueueData[QueueHead]
+        if QueueHead == QueueTail:
+            QueueHead = -1
+            QueueTail = -1
+        else:
+            QueueHead += 1
+        return returned_val 
+    
 #3.d.i 
 def StoreItems():
+    global QueueData
+    global QueueHead
+    global QueueTail
     invalid = 0
-    for i in range(0, 10):
-        values = input("Enter a 7 character string: ")
+    
+    for i in range(0,10):
+        data = input("Enter a 7-character input: ")
+        total = (int(data[0]) * 1) + (int(data[1]) * 3) + (int(data[2]) * 1) + (int(data[3]) * 3) + (int(data[4]) * 1) + (int(data[5]) * 3) 
         
-        sum_1 = (int(values[0]) * 1) + (int(values[2]) * 1) + (int(values[4]) * 1)
-        sum_3 = (int(values[1]) * 3) + (int(values[3]) * 3) + (int(values[5]) * 3)
-        
-        sums = sum_1 + sum_3
-        calc_digit = sums // 10 
-        
-        if calc_digit == 10:
+        check_digit = total // 10
+        if check_digit == 10:
             final_check = "X"
         else:
-            final_check = str(calc_digit) 
-        if values[6] == final_check:
-            if Enqueue(values[0:6]): 
-                print("Item inserted")
+            final_check = str(check_digit)
+        if final_check == data[6]:
+            result = Enqueue(data[0:6])
+            if result == True:
+                print("Value Inserted")
             else:
-                print("Queue is already full")
+                print("Queue Full")
         else:
-            print("Invalid check digit")
             invalid += 1
-            
-    print(f"There were {invalid} invalid items")
+    print(f"There were {invalid} invalid number(s)")
     
 #3.d.ii 
 StoreItems()
 result = Dequeue()
 if result == False:
-    print("Queue is Empty")
+    print("Queue Empty")
 else:
     print(result)
