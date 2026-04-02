@@ -73,5 +73,5 @@ Part 3(d)(i): StoreItems() subroutine:
    2. If valid (matching 7th char), Enqueue the first 6 digits and print status.
    3. If invalid, increment counter. Output total invalid count at the end.
 
-# Part 3(d)(ii): Amend main program:
-# Call StoreItems(), then call Dequeue() once and output result or "Empty" message.
+ Part 3(d)(ii): Amend main program:
+ Call StoreItems(), then call Dequeue() once and output result or "Empty" message.
